@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
+        <title>MOM - Cambio turni</title>
+
+        <!-- Angular Material requires Angular.js Libraries -->
+        <script src="lib/angular-1.6.6/angular.min.js"></script>
+        <script src="lib/angular-1.6.6/angular-animate.min.js"></script>
+        <script src="lib/angular-1.6.6/angular-aria.min.js"></script>
+        <script src="lib/angular-1.6.6/angular-messages.min.js"></script>
+
+        <!-- Angular Material Library -->
+        <script src="lib/angular-material-1.1.5/angular-material.min.js"></script>
+        <link rel="stylesheet" href="lib/angular-material-1.1.5/angular-material.min.css">
+    </head>
+
+    <body ng-app="mom" ng-controller="start" ng-cloak>
+        
+        <ng-include src="'menu.html'" ng-cloak></ng-include>
+        
+        <!-- inizio contenuto pagina -->
+        <section ng-controller="visualizza" ng-if="utente" ng-init="select_cambi()" id="visualizza">
+
+            <div layout="column" flex layout-fill ng-cloak>
+                <div class="container">
+                    <section>
+                        <md-subheader class="md-primary" ng-click="fl_cedo_mattina = !fl_cedo_mattina">CEDO MATTINA</md-subheader>
+                        <md-list layout-padding ng-show="fl_cedo_mattina">
+                            <md-list-item class="md-3-line" ng-if="cambi.status.mattina" ng-repeat="cambio in cambi.response.mattina">
+                                <div class="md-list-item-text">
+                                    <h3 class="data">{{cambio.giorno_format}}<span ng-if="cambio.giorno_fine_format && cambio.giorno_format != cambio.giorno_fine_format"> - {{cambio.giorno_fine_format}}</span></h3>
+                                    <h4><b>{{cambio.numero_turno}}</b> - {{cambio.ora_inizio}} - {{cambio.ora_fine}}</h4>
+                                    <p><b>{{cambio.matricola}} - {{cambio.nome}} {{cambio.cognome}} - <a href="tel:{{cambio.telefono}}">{{cambio.telefono}}</a></b></p>
+                                    <p>{{cambio.note}}</p>
+                                </div>
+
+                                <md-button class="md-secondary md-icon-button md-accent" aria-label="Elimina" ng-if="!cambio.utente_prenotato && cambio.matricola == utente.matricola" ng-click="delete_cambio(cambio, 'mattina')">
+                                    <md-tooltip md-direction="left">Elimina</md-tooltip>
+                                    <md-icon md-svg-icon="img/icons/delete.svg"></md-icon>
+                                </md-button>   
+                                <!--                                 
+                                <md-button class="md-secondary md-icon-button md-accent" aria-label="Prenota il turno" ng-if="cambio.utente_prenotato == 0 && cambio.matricola != utente.matricola" ng-click="seleziona_cambio(cambio, 'mattina')">
+                                    <md-tooltip md-direction="left">Prenota il turno</md-tooltip>
+                                    <md-icon md-svg-icon="img/icons/complete.svg"></md-icon>
+                                </md-button>
+                                <md-button class="md-secondary md-icon-button md-accent" aria-label="Prenotato" ng-if="cambio.utente_prenotato != 0">
+                                    <md-tooltip md-direction="left">Turno prenotato dalla matricola: {{cambio.utente_prenotato}}</md-tooltip>
+                                    <md-icon md-svg-icon="img/icons/prenotato.svg"></md-icon>
+                                </md-button>
+                            -->
+
+                                <md-divider ng-if="!$last"></md-divider>
+                            </md-list-item>
+
+                            <div ng-if="!cambi.status.mattina">
+                                {{cambi.response.mattina}}
+                            </div>
+                        </md-list>
+                    </section>
+
+                    <section>
+                        <md-subheader class="md-primary" ng-click="fl_cedo_pomeriggio = !fl_cedo_pomeriggio">CEDO POMERIGGIO</md-subheader>
+                        <md-list layout="column" layout-padding ng-show="fl_cedo_pomeriggio">
+                            <md-list-item class="md-3-line" ng-if="cambi.status.pomeriggio" ng-repeat="cambio in cambi.response.pomeriggio">
+                                <div class="md-list-item-text">
+                                    <h3 class="data">{{cambio.giorno_format}}<span ng-if="cambio.giorno_fine_format && cambio.giorno_format != cambio.giorno_fine_format"> - {{cambio.giorno_fine_format}}</span></h3>
+                                    <h4><b>{{cambio.numero_turno}}</b> - {{cambio.ora_inizio}} - {{cambio.ora_fine}}</h4>
+                                    <p><b>{{cambio.matricola}} - {{cambio.nome}} {{cambio.cognome}} - <a href="tel:{{cambio.telefono}}">{{cambio.telefono}}</a></b></p>
+                                    <p>{{cambio.note}}</p>
+                                </div>
+
+                                <md-button class="md-secondary md-icon-button md-accent" aria-label="Elimina" ng-if="!cambio.utente_prenotato && cambio.matricola == utente.matricola" ng-click="delete_cambio(cambio, 'pomeriggio')">
+                                    <md-tooltip md-direction="left">Elimina</md-tooltip>
+                                    <md-icon md-svg-icon="img/icons/delete.svg"></md-icon>
+                                </md-button>
+                                <!--
+                                <md-button class="md-secondary md-icon-button md-accent" aria-label="Complete" ng-if="cambio.utente_prenotato == 0 && cambio.matricola != utente.matricola" ng-click="seleziona_cambio(cambio, 'pomeriggio')">
+                                    <md-tooltip md-direction="left">Prenota il turno</md-tooltip>
+                                    <md-icon md-svg-icon="img/icons/complete.svg"></md-icon>
+                                </md-button>
+                                <md-button class="md-secondary md-icon-button md-accent" aria-label="Prenotato" ng-if="cambio.utente_prenotato != 0">
+                                    <md-tooltip md-direction="left">Turno prenotato dalla matricola:  {{cambio.utente_prenotato}}</md-tooltip>
+                                    <md-icon md-svg-icon="img/icons/prenotato.svg"></md-icon>
+                                </md-button>
+                            -->
+
+                                <md-divider ng-if="!$last"></md-divider>
+                            </md-list-item>
+
+                            <div ng-if="!cambi.status.pomeriggio">
+                                {{cambi.response.pomeriggio}}
+                            </div>
+                        </md-list>
+                    </section>
+
+                    <section>
+                        <md-subheader class="md-warn" ng-click="fl_riposo = !fl_riposo">CERCO RIPOSO</md-subheader>
+                        <md-list layout="column" layout-padding ng-show="fl_riposo">
+                            <md-list-item class="md-3-line" ng-if="cambi.status.riposo" ng-repeat="cambio in cambi.response.riposo">
+                                <div class="md-list-item-text">
+                                    <h3><b>CERCO:</b> <span class="data">{{cambio.giorno_cerco_format}}</span></h3>
+                                    <h4><b>CEDO:</b> <span class="data">{{cambio.giorno_format}}</span></h4>
+                                    <p><b>{{cambio.matricola}} - {{cambio.nome}} {{cambio.cognome}} - <a href="tel:{{cambio.telefono}}">{{cambio.telefono}}</a></b></p>
+                                    <p>{{cambio.note}}</p>
+                                </div>
+
+                                <md-button class="md-secondary md-icon-button md-accent" aria-label="Elimina" ng-if="!cambio.utente_prenotato && cambio.matricola == utente.matricola" ng-click="delete_cambio(cambio, 'riposo')">
+                                    <md-tooltip md-direction="left">Elimina</md-tooltip>
+                                    <md-icon md-svg-icon="img/icons/delete.svg"></md-icon>
+                                </md-button>   
+                                <!--                                 
+                                <md-button class="md-secondary md-icon-button md-accent" aria-label="Prenota il turno" ng-if="cambio.utente_prenotato == 0 && cambio.matricola != utente.matricola" ng-click="seleziona_cambio(cambio, 'riposo')">
+                                    <md-tooltip md-direction="left">Prenota il turno</md-tooltip>
+                                    <md-icon md-svg-icon="img/icons/complete.svg"></md-icon>
+                                </md-button>
+                                <md-button class="md-secondary md-icon-button md-accent" aria-label="Prenotato" ng-if="cambio.utente_prenotato != 0">
+                                    <md-tooltip md-direction="left">Turno prenotato dalla matricola: {{cambio.utente_prenotato}}</md-tooltip>
+                                    <md-icon md-svg-icon="img/icons/prenotato.svg"></md-icon>
+                                </md-button>
+                            -->
+
+                                <md-divider ng-if="!$last"></md-divider>
+                            </md-list-item>
+
+                            <div ng-if="!cambi.status.riposo">
+                                {{cambi.response.riposo}}
+                            </div>
+                        </md-list>
+                    </section>
+
+                </div>
+            </div>
+
+        </section>
+        
+        <section ng-if="login_controlla_completed && !utente">
+            <h3 class="md-headline">Sessione scaduta.
+            <br/> <a href="index.html">Effettuare il Login</a></h3>
+        </section>
+
+    </body>
+</html>
+
+<script type="text/javascript" src="config/config.js"></script>
+<script type="text/javascript" src="js/function.js"></script>
+<script type="text/javascript" src="js/visualizza.js"></script>
+
+<link href="css/style.css" rel="stylesheet">
+<link href="css/menu.css" rel="stylesheet">
+<link href="css/dialog.css" rel="stylesheet">
+<link href="css/visualizza.css" rel="stylesheet">
+

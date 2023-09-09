@@ -1,0 +1,206 @@
+html, body {
+    height: initial;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+*[ng-click], *[onclick] {
+	cursor: pointer;
+}
+
+.md-headline {
+    text-align: center;
+}
+.md-headline img {
+    width: 100%;
+}
+
+.left {
+    float: left;
+}
+.right {
+    float: right;
+}
+.text-left {
+    text-align: left !important;
+}
+.text-right {
+    text-align: right !important;
+}
+.text-center {
+    text-align: center !important;
+}
+
+.center {
+    margin: auto;
+    text-align: center;
+}
+
+
+.hidden {
+    display: none;
+}
+
+.text-weight {
+    font-weight: 400;
+}
+
+#loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.5);
+    z-index: 9;
+
+    display: flex;
+    justify-content: center;
+}
+#loader md-progress-circular {
+    /*margin: calc(50% - 60px) auto 0;*/
+    align-self: center;
+}
+
+#img_zoom {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.5);
+    z-index: 9;
+
+    display: none;
+    justify-content: center;
+}
+#img_zoom img {
+    align-self: center;
+}
+
+/* coloro il pulsante dello stesso colore del menù */
+.my-md-primary {
+    background-color:  #1976D2 !important;
+}
+.my-md-green {
+    background-color:  #2eb300 !important;
+}
+
+/* per colorare i testi di bianco - anche per le svg (così da averne 1 per tutto) */
+.color-withe {
+    color: #ffffff  !important;
+}
+
+/* css per la barra del qr code */
+.nordine {
+    width: 50%;
+    margin: auto;
+}
+
+/* css per dialog1.tmpl.html */
+.background-blue {
+    background-color: #1976D2 !important;
+}
+.align {
+    min-height: initial;
+    min-width: initial;
+}
+#dati md-toolbar-tools md-icon svg {
+    height: 15px;
+}
+
+.centrale {
+    margin-left: 30%;
+    padding: 2%;
+}
+
+
+
+/* per rotazione infinita */
+/* css div 
+-webkit-animation: rotating-function 2.25s linear infinite;
+     -moz-animation: rotating-function 2.25s linear infinite;
+      -ms-animation: rotating-function 2.25s linear infinite;
+       -o-animation: rotating-function 2.25s linear infinite;
+          animation: rotating-function 2.25s linear infinite;
+ fine css div */
+
+@-webkit-keyframes rotating-function {
+    from {
+        -webkit-transform: rotate(0deg);
+    }
+    to {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@-moz-keyframes rotating-function {
+    from {
+        -moz-transform: rotate(0deg);
+    }
+    to {
+        -moz-transform: rotate(360deg);
+    }
+}
+
+@-ms-keyframes rotating-function {
+    from {
+        -ms-transform: rotate(0deg);
+    }
+    to {
+        -ms-transform: rotate(360deg);
+    }
+}
+
+@-o-keyframes rotating-function {
+    from {
+        -o-transform: rotate(0deg);
+    }
+    to {
+        -o-transform: rotate(360deg);
+    }
+}
+
+@keyframes rotating-function {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+.md-button.md-icon-button {
+    margin: 0;
+}
+
+.no-margin {
+    margin:0;
+}
+.margin-top-15px {
+    margin-top:15px;
+}
+
+md-backdrop{
+     height: 100% !important; 
+}
+
+
+/* ads */
+#ads {
+	margin: 20px auto;
+    text-align: center;
+}
+#adform-adbox-1yaenpcu53k,
+#avadv-gpt-1_ad_container,
+#avadv-gpt-1,
+#avadv-1,
+#canvas {
+	max-width: 100%;
+    margin: auto !important;
+    text-align: center !important;
+    overflow: hidden;
+}

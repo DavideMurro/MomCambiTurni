@@ -1,0 +1,32 @@
+#visualizza {
+	width: 100%;
+	max-width: 800px;
+	margin: auto;
+}
+#visualizza .container {	
+    height: calc(100vh - 50px);
+}
+#visualizza .data {
+	color: blue;
+    font-weight: bold;
+    font-size: large;
+}
+#visualizza .md-subheader {
+    background-color: #aaa;
+    color: white;
+    border-top: 1px solid;
+    font-weight: bold;
+}
+#visualizza .md-subheader.md-primary {
+    background-color: rgb(63,81,181);
+}
+#visualizza .md-subheader.md-warn {
+    background-color: rgb(255,87,34);
+}
+#visualizza md-list-item {	
+    padding: 5px 0;
+}
+#visualizza md-list-item * {	
+    font-size: medium;
+    line-height: initial;
+}

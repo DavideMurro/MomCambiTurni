@@ -1,0 +1,18 @@
+#home {
+	width: 100%;
+	max-width: 800px;
+	margin: auto;
+    min-height: 100vh;
+}
+.regolamento_video {
+	width: 100%;
+}
+.regolamento_text {
+	line-height: 25px;
+}
+.regolamento_img {
+	display: block;
+	width: 100%;
+	max-width: 300px;
+	margin: auto;
+}

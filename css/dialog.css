@@ -1,0 +1,45 @@
+md-dialog.dialog {
+	width: 50%;
+	max-width: 500px;
+}
+md-dialog.dialog md-toolbar {
+	height: 50px;
+	max-height: 50px;
+	min-height: 50px;
+}
+md-dialog.dialog md-input-container.sconti {
+	width: 7em;
+	margin: 18px auto;
+}
+md-dialog.dialog md-input-container.sconti input[type="number"] {
+	width: 4em;
+}
+
+md-dialog .save {
+	background-color: rgba(46, 179, 0, 0.7);
+	color: white;
+}
+md-dialog .save:not([disabled]):hover, md-dialog .save:not([disabled]).md-focused {
+	background-color: rgba(46, 179, 0, 1);
+}
+
+
+/* dialog delle anagrafiche */
+md-dialog.dialog.anagrafica md-toolbar {
+	background-color: #d67a00 !important;
+}
+md-dialog.dialog.anagrafica md-input-container {
+	color: #d67a00;
+}
+md-dialog.dialog.anagrafica md-input-container.md-default-theme:not(.md-input-invalid).md-input-focused .md-input,
+md-dialog.dialog.anagrafica md-input-container:not(.md-input-invalid).md-input-focused .md-input,
+md-dialog.dialog.anagrafica md-input-container.md-default-theme:not(.md-input-invalid).md-input-resized .md-input,
+md-dialog.dialog.anagrafica md-input-container:not(.md-input-invalid).md-input-resized .md-input {
+    border-color: #d67a00;
+}
+md-dialog.dialog.anagrafica md-input-container.md-default-theme:not(.md-input-invalid).md-input-focused label,
+md-dialog.dialog.anagrafica md-input-container:not(.md-input-invalid).md-input-focused label, 
+md-dialog.dialog.anagrafica md-input-container.md-default-theme:not(.md-input-invalid).md-input-focused md-icon, 
+md-dialog.dialog.anagrafica md-input-container:not(.md-input-invalid).md-input-focused md-icon {
+    color: #d67a00;
+}

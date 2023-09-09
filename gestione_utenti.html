@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
+        <title>MOM - Cambio turni</title>
+
+        <!-- Angular Material requires Angular.js Libraries -->
+        <script src="lib/angular-1.6.6/angular.min.js"></script>
+        <script src="lib/angular-1.6.6/angular-animate.min.js"></script>
+        <script src="lib/angular-1.6.6/angular-aria.min.js"></script>
+        <script src="lib/angular-1.6.6/angular-messages.min.js"></script>
+
+        <!-- Angular Material Library -->
+        <script src="lib/angular-material-1.1.5/angular-material.min.js"></script>
+        <link rel="stylesheet" href="lib/angular-material-1.1.5/angular-material.min.css">
+    </head>
+
+    <body ng-app="mom" ng-controller="start" ng-cloak>
+        
+        <ng-include src="'menu.html'" ng-cloak></ng-include>
+        
+        <!-- inizio contenuto pagina -->
+        <section ng-if="utente" ng-controller="gestione_utenti" ng-init="select_utenti()">
+            <md-content>
+                <div id="gestione_utenti" ng-if="utente.admin == 1">
+                    <h3 class="md-headline">Gestione utenti</h3>
+
+                    <div layout-padding>
+
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th ng-click="sortType = 'matricola'; sortReverse = !sortReverse">
+                                    	Matricola
+        								<span class="sortorder" ng-show="sortType === 'matricola'" ng-class="{reverse: sortReverse}"></span>
+                        			</th>
+                                    <th ng-click="sortType = 'password'; sortReverse = !sortReverse">
+                                    	Password
+        								<span class="sortorder" ng-show="sortType === 'password'" ng-class="{reverse: sortReverse}"></span>
+                                    </th>
+                                    <th ng-click="sortType = 'nome'; sortReverse = !sortReverse">
+                                    	Nome
+        								<span class="sortorder" ng-show="sortType === 'nome'" ng-class="{reverse: sortReverse}"></span>
+                                    </th>
+                                    <th ng-click="sortType = 'cognome'; sortReverse = !sortReverse">
+                                    	Cognome
+        								<span class="sortorder" ng-show="sortType === 'cognome'" ng-class="{reverse: sortReverse}"></span>
+                                    </th>
+                                    <th ng-click="sortType = 'mail'; sortReverse = !sortReverse">
+                                    	Mail
+        								<span class="sortorder" ng-show="sortType === 'mail'" ng-class="{reverse: sortReverse}"></span>
+                                    </th>
+                                    <th ng-click="sortType = 'telefono'; sortReverse = !sortReverse">
+                                    	Telefono
+        								<span class="sortorder" ng-show="sortType === 'telefono'" ng-class="{reverse: sortReverse}"></span>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><input type="number" ng-model="utente_new.matricola"/></td>
+                                    <td><input type="text" ng-model="utente_new.password"/></td>
+                                    <td><input type="text" ng-model="utente_new.nome"/></td>
+                                    <td><input type="text" ng-model="utente_new.cognome"/></td>
+                                    <td><input type="text" ng-model="utente_new.mail"/></td>
+                                    <td><input type="tel" ng-model="utente_new.telefono"/></td>
+                                    <td><md-button ng-click="insert_utente(utente_new)">Aggiungi</md-button></td>
+                                </tr>
+                                <tr ng-repeat="utente in utenti | orderBy:sortType:sortReverse">
+                                    <td>{{utente.matricola}}</td>
+                                    <td><input type="text" ng-model="utente.password"/></td>
+                                    <td><input type="text" ng-model="utente.nome"/></td>
+                                    <td><input type="text" ng-model="utente.cognome"/></td>
+                                    <td><input type="text" ng-model="utente.mail"/></td>
+                                    <td><input type="tel" ng-model="utente.telefono"/></td>
+                                    <td><md-button ng-click="insert_utente(utente)">Salva</md-button></td>
+                                    <td><md-button ng-click="insert_utente(utente, true)">Elimina</md-button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <div id="utenti" ng-if="utente.admin == 0">
+                    <h3 class="md-headline">Utenti</h3>
+                    
+                    <div class="center">
+                      <h3 class="md-subhead">Ordina per</h3>
+                      <md-button ng-click="sortType = 'matricola'; sortReverse = !sortReverse">
+                      	Matricola
+        				<span class="sortorder" ng-show="sortType === 'matricola'" ng-class="{reverse: sortReverse}"></span>
+                      </md-button>
+                      <md-button ng-click="sortType = 'cognome'; sortReverse = !sortReverse">
+                      	Cognome
+       					<span class="sortorder" ng-show="sortType === 'cognome'" ng-class="{reverse: sortReverse}"></span>
+                      </md-button>
+                    </div>
+
+                    <md-list layout-padding>
+                      <md-list-item class="md-3-line" ng-repeat="utente in utenti | orderBy:sortType:sortReverse">
+                        <div class="md-list-item-text">
+                          <h3 class="data">{{utente.cognome}} {{utente.nome}} - {{utente.matricola}}</h3>
+                          <p><a href="mailto:{{utente.mail}}">{{utente.mail}}</a></p>
+                          <p><a href="tel:{{utente.telefono}}">{{utente.telefono}}</a></p>
+                        </div>
+
+                        <md-divider ng-if="!$last"></md-divider>
+                      </md-list-item>
+                    </md-list>
+                    
+                </div>
+            </md-content>
+        </section>
+
+        <section ng-if="login_controlla_completed && !utente">
+            <h3 class="md-headline">Sessione scaduta.
+            <br/> <a href="index.html">Effettuare il Login</a></h3>
+        </section>
+
+
+        <div id='loader' ng-show="pl_loading">
+            <md-progress-circular md-mode="indeterminate" ></md-progress-circular>
+         </div>
+
+
+    </body>
+</html>
+
+<script type="text/javascript" src="config/config.js"></script>
+<script type="text/javascript" src="js/function.js"></script>
+<script type="text/javascript" src="js/gestione_utenti.js"></script>
+
+<link href="css/style.css" rel="stylesheet">
+<link href="css/menu.css" rel="stylesheet">
+<link href="css/dialog.css" rel="stylesheet">
+<link href="css/gestione_utenti.css" rel="stylesheet">

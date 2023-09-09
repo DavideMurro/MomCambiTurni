@@ -1,0 +1,66 @@
+nav {
+    /*
+	position: fixed;
+    left: 0; 
+    top: 0; 
+    */
+    z-index: 9;
+    width: 100%;
+}
+nav md-toolbar {
+    background-color: #1976D2 !important;
+    height: 50px !important;
+    max-height: 50px !important;
+    min-height: 50px !important;
+}
+nav .logo {
+    height: 100%;
+}
+nav .menu-link {
+    padding: 15px;
+    font-size: 18px;
+    font-weight: 400;
+    transition: all 0.2s;
+
+    color: rgba(255, 255, 255, 0.5);
+}
+nav .menu-link.selected, nav .menu-link:hover {
+    color: rgba(255, 255, 255, 1);
+}
+
+nav .utente img {
+    height: 25px;
+    vertical-align: middle;
+    margin-right: 5px;
+}
+nav .utente span {
+    vertical-align: middle;
+}
+
+.md-toolbar-tools {
+    height: 50px !important;
+    max-height: 50px !important;
+}
+
+
+
+nav #menu {
+    position: fixed;
+    right: 5%; 
+    top: 60px;     
+    z-index: 9;
+    /*width: 75px;
+    height: 75px;*/
+}
+nav #menu md-fab-speed-dial:not(.md-is-open) {
+    height: 72px;
+}
+#menu .md-button.md-primary.md-fab {
+    background-color: #1976D2 !important;
+}
+#menu .md-button.md-fab {
+    padding: 0;
+}
+#menu .md-button.md-fab img {
+    height: 100%;
+}

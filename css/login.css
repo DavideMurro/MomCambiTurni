@@ -1,0 +1,40 @@
+.login {
+    width: 80%;
+    max-width: 500px;
+    margin: auto;
+    padding: 10px;
+    min-height: 100vh;
+}
+
+#submit_login {
+    background-color: #1976D2;
+    display: block;
+    margin: auto;
+    width: 70%;
+    height: 50px;
+
+    font-size: 16px;
+}
+#submit_login md-progress-circular {
+    position: absolute;
+    right: 10px;
+    top: 5px;
+}
+
+    
+
+.logo {
+    padding-top: 30px;
+    width: 60%;
+    margin: 0 auto;
+}
+.logo h1 {
+    margin: 0 auto;
+}
+.logo .image {
+    display: block;
+    width: 100%;
+    max-width: 150px;
+    margin: auto;
+}
+

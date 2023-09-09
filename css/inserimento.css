@@ -1,0 +1,30 @@
+#inserimento {
+	width: 100%;
+	max-width: 800px;
+	margin: auto;
+}
+
+
+.data .md-datepicker-triangle-button  {
+	display: none;
+}
+.data md-icon.md-default-theme, md-icon {
+    color: initial;
+}
+.data ._md-datepicker-floating-label > md-datepicker .md-datepicker-button {
+    margin-left: -8px;
+    margin-right: -8px;
+}
+.data ._md-datepicker-floating-label._md-datepicker-has-calendar-icon > label:not(.md-no-float):not(.md-container-ignore) {
+    right: 45px;
+}
+.data .md-datepicker-input-container {
+    width: calc(100% - 40px);    
+}
+.data .md-datepicker-input-container .md-datepicker-input {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;   
+  pointer-events: none;
+}

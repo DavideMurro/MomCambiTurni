@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
+        <title>MOM - Cambio turni</title>
+
+        <!-- Angular Material requires Angular.js Libraries -->
+        <script src="lib/angular-1.6.6/angular.min.js"></script>
+        <script src="lib/angular-1.6.6/angular-animate.min.js"></script>
+        <script src="lib/angular-1.6.6/angular-aria.min.js"></script>
+        <script src="lib/angular-1.6.6/angular-messages.min.js"></script>
+
+        <!-- Angular Material Library -->
+        <script src="lib/angular-material-1.1.5/angular-material.min.js"></script>
+        <link rel="stylesheet" href="lib/angular-material-1.1.5/angular-material.min.css">
+    </head>
+
+    <body ng-app="mom" ng-controller="start" ng-cloak>
+        
+        <ng-include src="'menu.html'" ng-cloak></ng-include>
+        
+        <!-- inizio contenuto pagina -->
+        <section ng-controller="inserimento" ng-if="utente">
+
+            <md-content>
+                <form id="inserimento" name="inserimento" ng-submit="insert_cambio()">
+                    <!--<h3 class="md-headline">Inserimento</h3>-->
+                    <h3 class="md-headline">
+                        <img src="img/inserimento_cedo_title.png" ng-show="!inserimento.fl_riposo"/>
+                        <img src="img/inserimento_riposo_title.png" ng-show="inserimento.fl_riposo"/>
+                    </h3>
+
+                    <md-content layout-padding ng-init="inserimento.fl_riposo = true">
+                        <!--
+                        <md-switch class="md-primary" ng-model="inserimento.fl_riposo" >
+                            <span ng-show="!inserimento.fl_riposo">Cerco riposo</span>
+                            <span ng-show="inserimento.fl_riposo">Cedo turno</span>
+                        </md-switch>
+                        -->
+
+                        <div layout-gt-sm="row" class="data" flex="100">
+                            <div ng-if="!inserimento.fl_riposo" flex="100">
+                            	<div layout="row">
+                                <md-input-container class="md-block" flex="50">
+                                    <label>Inizio</label>
+                                    <!--<md-icon md-svg-src="img/icons/calendar.svg" ></md-icon>-->
+                                    <md-datepicker ng-model="inserimento.data" md-min-date="mindate" md-max-date="inserimento.datafine" ng-change="datainizio_datafine()" required></md-datepicker>
+                                </md-input-container>
+                                <md-input-container class="md-block" flex="50">
+                                    <label>Fine</label>
+                                    <!--<md-icon md-svg-src="img/icons/calendar.svg" ></md-icon>-->
+                                    <md-datepicker ng-model="inserimento.datafine" md-min-date="inserimento.data"></md-datepicker>
+                                </md-input-container>
+                                </div>
+                                
+                                <em>Se non si seleziona la data di fine verrà considerata la data inizio come unica giornata</em>
+                            </div>
+
+                            <div ng-if="inserimento.fl_riposo" layout="row" flex="100">
+                                <md-input-container class="md-block" flex="50">
+                                    <label>Cerco</label>
+                                    <md-icon md-svg-src="img/icons/calendar.svg" ></md-icon>
+                                    <md-datepicker ng-model="inserimento.riposo.cerco" md-min-date="mindate" required></md-datepicker>
+                                </md-input-container>
+                                <span flex></span>
+                                <md-input-container class="md-block" flex="50">
+                                    <label>Cedo</label>
+                                    <md-icon md-svg-src="img/icons/calendar.svg" ></md-icon>
+                                    <md-datepicker ng-model="inserimento.riposo.cedo" md-min-date="mindate" required></md-datepicker>
+                                </md-input-container>
+                            </div>
+                        </div>
+
+                        <div layout="row" ng-if="!inserimento.fl_riposo" flex="100">
+                            <md-input-container class="md-block" flex="50">
+                                <label>Ora inizio</label>
+                                <md-icon md-svg-src="img/icons/time.svg" ></md-icon>
+                                <input type="time" id="ora_inizio" ng-model="inserimento.ora.inizio" ng-max="inserimento.ora.fine" required>
+                            </md-input-container>
+
+                            <md-input-container class="md-block" flex="50">
+                                <label>Ora fine</label>
+                                <md-icon md-svg-src="img/icons/time.svg" ></md-icon>
+                                <input type="time" id="ora_fine" ng-model="inserimento.ora.fine" ng-min="inserimento.ora.inizio" required>
+                            </md-input-container>
+                        </div>
+
+                        <div layout-gt-sm="row" ng-if="!inserimento.fl_riposo" flex="100">
+                            <md-input-container class="md-block" flex-gt-xs>
+                                <label>Numero turno</label>
+                                <md-icon md-svg-src="img/icons/numero_turno.svg" ></md-icon>
+                                <input type="number" ng-model="inserimento.numero_turno" min="0" max="999" md-select-on-focus required />
+                            </md-input-container>
+                        </div>
+
+                        <div layout-gt-sm="row" flex="100">
+                            <md-input-container class="md-block" flex-gt-xs>
+                                <label>Note</label>
+                                <md-icon md-svg-src="img/icons/note.svg" ></md-icon>
+                                <textarea ng-model="inserimento.note" md-maxlength="100" rows="2"></textarea>
+                            </md-input-container>
+                        </div>
+
+                        <div layout-gt-sm="row" flex="100">
+                            <md-button type="submit" class="md-raised md-primary" ng-disabled="!inserimento.$valid || invio">Invia</md-button>
+                            <md-button type="reset" class="md-raised md-warn">Annulla</md-button>
+                        <div layout-gt-sm="row">
+
+                    </md-content>
+                </form>
+            </md-content>
+        </section>
+        
+        <section ng-if="login_controlla_completed && !utente">
+            <h3 class="md-headline">Sessione scaduta.
+            <br/> <a href="index.html">Effettuare il Login</a></h3>
+        </section>
+
+
+        <div id="loader" ng-show="pl_loading">
+            <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+        </div>
+
+
+    </body>
+</html>
+
+<script type="text/javascript" src="config/config.js"></script>
+<script type="text/javascript" src="js/function.js"></script>
+<script type="text/javascript" src="js/inserimento.js"></script>
+
+<link href="css/style.css" rel="stylesheet">
+<link href="css/menu.css" rel="stylesheet">
+<link href="css/dialog.css" rel="stylesheet">
+<link href="css/inserimento.css" rel="stylesheet">
+
