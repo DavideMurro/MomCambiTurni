@@ -12,6 +12,6 @@ if(url_location.host.startsWith("www.")) {
 	www = "www.";
 }
 
-var url = http_https + www + "davidemurro.github.io/MomCambiTurni/";
+var url = http_https + www + "momcambiturni.it/";
 //var url = http_https + "://192.168.1.1/momcambiturni/";
 //var url_system = "/sdcard/momcambiturni/";
